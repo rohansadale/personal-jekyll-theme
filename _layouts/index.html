@@ -12,10 +12,16 @@
 
     {% include header.html %}
 
-    {% for p in site.pages_list %}
+    {% assign i = 0 %}
+    {% for p in site.pages_list %}    
       {% for page in site.pages %}
         {% if p[1] == page.section-type %}
-          {% include {{ page.path }} %}
+            {% assign i = i | plus:1 %}
+            {% assign odd = i | modulo: 2 %}
+            <section id="{{ page.section-type }}" class="container content-section text-center {% if odd != 1 %} gray-section {% endif %}">
+            {% include {{ page.path }} %}
+            </section>
+
         {% endif %}
       {% endfor %}
     {% endfor %}
